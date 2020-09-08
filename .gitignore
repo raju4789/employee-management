@@ -1,3 +1,6 @@
 target
 frontend/node_modules
 frontend/build
+
+.settings
+.classpath
