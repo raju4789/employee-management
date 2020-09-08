@@ -6,7 +6,7 @@ const HeaderComponent = () => {
     const location = useLocation();
 
     const onLogoutClick = () => {
-        localStorage.setItem("jwt", null);
+        localStorage.clear();
         history.push("/");
     }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import EmployeeService from '../services/EmployeeService';
-//import { deleteEmployeeById } from '../services/EmployeeService';
 import { useHistory } from 'react-router-dom';
 
 const ListEmployeeComponent = () => {
@@ -9,16 +8,23 @@ const ListEmployeeComponent = () => {
     const [firstLoad, setFirstLoad] = React.useState(true);
 
     if (firstLoad) {
-        EmployeeService.getEmployees().then((res) => {
+        EmployeeService.getEmployees().then(res => {
             setEmployees(res.data);
             setFirstLoad(false);
-        });
+        }).catch(_ => {
+            localStorage.removeItem("jwt");
+            history.push("/");
+        })
     }
 
     const deleteEmployee = (id) => {
         EmployeeService.deleteEmployeeById(id).then(res => {
             setEmployees(employees.filter(employee => employee.id !== id));
-        });
+        }).catch(_ => {
+            localStorage.removeItem("jwt");
+            history.push("/");
+
+        })
     }
 
     const viewEmployee = (id) => {

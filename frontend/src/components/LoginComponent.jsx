@@ -56,6 +56,7 @@ const LoginComponent = () => {
         const response = await LoginService.authenticate(loginCredentials);
         const body = response.data;
         if (body.jwt) {
+            localStorage.clear();
             localStorage.setItem("jwt", body.jwt);
             history.push("/employees");
         } else {

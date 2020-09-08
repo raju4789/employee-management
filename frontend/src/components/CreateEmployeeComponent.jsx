@@ -22,7 +22,10 @@ const CreateEmployeeComponent = (props) => {
                 setLastName(lastName);
                 setEmailId(emailId);
                 setFirstLoad(false);
-            });
+            }).catch(_ => {
+                localStorage.clear();
+                history.push("/");
+            })
         }
     }
 
@@ -33,10 +36,16 @@ const CreateEmployeeComponent = (props) => {
         if (id === '_add') {
             EmployeeService.createNewEmployee(employee).then(_ => {
                 history.push('/employees');
+            }).catch(_ => {
+                localStorage.clear();
+                history.push("/");
             });
         } else {
             EmployeeService.updateEmployee(employee, id).then(_ => {
                 history.push('/employees');
+            }).catch(_ => {
+                localStorage.clear();
+                history.push("/");
             });
         }
     }
