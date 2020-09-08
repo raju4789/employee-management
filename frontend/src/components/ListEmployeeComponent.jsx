@@ -7,6 +7,8 @@ const ListEmployeeComponent = () => {
     const [employees, setEmployees] = React.useState([]);
     const [firstLoad, setFirstLoad] = React.useState(true);
 
+    const ROLE = localStorage.getItem("role") ? localStorage.getItem("role") : "USER";
+
     if (firstLoad) {
         EmployeeService.getEmployees().then(res => {
             setEmployees(res.data);
@@ -43,7 +45,7 @@ const ListEmployeeComponent = () => {
         <div>
             <h2 className="text-center">Employees List</h2>
             <div className="row">
-                <button className="btn btn-primary" onClick={addEmployee}> Add Employee</button>
+                <button className="btn btn-primary" disabled={ROLE !== "ADMIN"} onClick={addEmployee}> Add Employee</button>
             </div>
             <br></br>
             <div className="row">
@@ -66,8 +68,8 @@ const ListEmployeeComponent = () => {
                                         <td> {employee.lastName}</td>
                                         <td> {employee.emailId}</td>
                                         <td>
-                                            <button onClick={() => editEmployee(employee.id)} className="btn btn-info">Update </button>
-                                            <button style={{ marginLeft: "10px" }} onClick={() => deleteEmployee(employee.id)} className="btn btn-danger">Delete </button>
+                                            <button onClick={() => editEmployee(employee.id)} className="btn btn-info" disabled={ROLE !== "ADMIN"} >Update </button>
+                                            <button style={{ marginLeft: "10px" }} disabled={ROLE !== "ADMIN"} onClick={() => deleteEmployee(employee.id)} className="btn btn-danger">Delete </button>
                                             <button style={{ marginLeft: "10px" }} onClick={() => viewEmployee(employee.id)} className="btn btn-info">View </button>
                                         </td>
                                     </tr>

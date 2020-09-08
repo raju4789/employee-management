@@ -1,13 +1,14 @@
 package com.employee.controller;
 
+import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +24,6 @@ import com.employee.services.JwtUtil;
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
-	
-	private static Logger log = Logger.getLogger(JwtAuthenticationController.class);
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -35,7 +34,6 @@ public class JwtAuthenticationController {
 	@Autowired
 	private JwtUserDetailsService jwtUserDetailsService;
 
-
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<AuthenticationResponse> createAuthenticationToken(
 			@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
@@ -44,14 +42,16 @@ public class JwtAuthenticationController {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 		} catch (BadCredentialsException e) {
-			return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(null),
+			return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse("", ""),
 					HttpStatus.UNAUTHORIZED);
 		}
 
 		final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
-		final String jwt = jwtTokenUtil.generateToken(userDetails);
-		return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(jwt), HttpStatus.CREATED);
+		String jwt = jwtTokenUtil.generateToken(userDetails);
+		String ROLE = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.collect(Collectors.joining(","));
+		return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(jwt, ROLE), HttpStatus.CREATED);
 
 	}
 }

@@ -58,6 +58,7 @@ const LoginComponent = () => {
         if (body.jwt) {
             localStorage.clear();
             localStorage.setItem("jwt", body.jwt);
+            localStorage.setItem("role", body.role);
             history.push("/employees");
         } else {
             setMessage("Login failed");

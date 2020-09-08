@@ -1,16 +1,20 @@
 package com.employee.model;
 
-import java.io.Serializable;
+public class AuthenticationResponse {
 
-public class AuthenticationResponse implements Serializable {
+  private String jwt;
+  private String role;
 
-    private final String jwt;
-    
-    public AuthenticationResponse(String jwt) {
-		this.jwt = jwt;
-    }
+  public AuthenticationResponse(String jwt, String role) {
+    this.jwt = jwt;
+    this.role = role;
+  }
 
-    public String getJwt() {
-        return jwt;
-    }
+  public String getJwt() {
+    return jwt;
+  }
+
+  public String getRole() {
+    return role;
+  }
 }

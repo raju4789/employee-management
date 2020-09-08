@@ -19,7 +19,7 @@ class DataLoadListener implements ApplicationListener<ApplicationReadyEvent> {
 
 	@Autowired
 	private UserRepository userDAO;
-	
+
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
@@ -32,10 +32,14 @@ class DataLoadListener implements ApplicationListener<ApplicationReadyEvent> {
 		try {
 			UserCredentials userCredentials = new UserCredentials("usr1", bcryptEncoder.encode("pwd"), "USER");
 			userDAO.save(userCredentials);
-			
-			Employee employee = new Employee("Raju","MLN", "narasimha@gmail.com");
+			userCredentials = new UserCredentials("admin", bcryptEncoder.encode("admin"), "ADMIN");
+			userDAO.save(userCredentials);
+
+			Employee employee = new Employee("Raju", "MLN", "narasimha4789@gmail.com");
 			employeeRepository.save(employee);
-		
+			employee = new Employee("Rahim", "Khan", "rahim@gmail.com");
+			employeeRepository.save(employee);
+
 		} catch (Exception e) {
 			log.error("Exception loading initial data...", e);
 			e.printStackTrace();
