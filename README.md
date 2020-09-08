@@ -2,6 +2,28 @@
 
 A simple app to maintain employee registry.
 
-__Built using:__ React Hooks, Spring Boot, JWT based authorisation using Spring Security, Spring Data JPA, H2(Inmemory SQL database), REST, HTML, CSS, Bootstrap.
+## BUILT USING:
+React Hooks, Spring Boot, Role based authorisation using JWT and Spring Security, Spring Data JPA, H2(Inmemory SQL database), REST, HTML, CSS, Bootstrap.
 
-__Try here:__ https://emp-man.herokuapp.com/
+__TRY HERE:__ https://emp-man.herokuapp.com/
+
+___USER CREDENTIALS___:
+
+1. Role: ADMIN
+Username: admin
+Paswword: admin
+
+2. Role : USER
+Username: usr1
+Password: pwd
+
+## Few Screenshots
+
+### Login
+![image.png](images/employee_1.png)<br><br>
+
+## Dashboard
+![image.png](images/employee_2.png)<br><br>
+
+## Add/Update employee
+![image.png](images/employee_3.png)<br><br>
