@@ -10,20 +10,22 @@ __TRY HERE:__ https://emp-man.herokuapp.com/
 ___USER CREDENTIALS___:
 
 1. Role: ADMIN
-Username: admin
-Paswword: admin
+
+____Username____: admin
+____Password____: admin
 
 2. Role : USER
-Username: usr1
-Password: pwd
+
+____Username:____ usr1
+____Password:____ pwd
 
 ## Few Screenshots
 
 ### Login
 ![image.png](images/employee_1.png)<br><br>
 
-## Dashboard
+### Dashboard
 ![image.png](images/employee_2.png)<br><br>
 
-## Add/Update employee
+### Add/Update employee
 ![image.png](images/employee_3.png)<br><br>
